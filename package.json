@@ -1,0 +1,15 @@
+{
+  "name": "polyfill-advance",
+  "version": "0.0.1",
+  "description": "polyfill that add's beta functions that modern js users use",
+  "main": "index.js",
+  "repository": "https://github.com/cybemachine/polyfill-advance.git",
+  "author": "cybe <https://www.github.com/cybemachine>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.21",
+    "jest": "^27.5.1"
+  }
+}
