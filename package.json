@@ -1,15 +1,36 @@
 {
   "name": "polyfill-advance",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "polyfill that add's beta functions that modern js users use",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "bundle": "./dist/bundle.js",
+  "maintainers": [
+    "ridhesh w",
+    "bryce d",
+    "daniel f",
+    "regina f"
+  ],
+  "keywords": [
+    "cybe"
+  ],
   "repository": "https://github.com/cybemachine/polyfill-advance.git",
   "author": "cybe <https://www.github.com/cybemachine>",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "test": "node --trace-warnings --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "prepublish": "npm run test"
+    "prepublish": "yarn run build && yarn run test",
+
+    "dirbuild": "tsc --project ./config/dir.json",
+
+    "amdbuild": "tsc --project ./config/amd.json",
+
+    "systembuild": "tsc --project ./config/system.json",
+
+    "filebuild": "yarn run amdbuild && yarn run systembuild",
+
+    "build": "yarn run dirbuild && yarn run filebuild && node builder",
+
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",

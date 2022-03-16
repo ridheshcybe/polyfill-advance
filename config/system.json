@@ -1,0 +1,15 @@
+{
+    "include": [
+        "../app/*.ts"
+    ],
+    "compilerOptions": {
+        "target": "es6",
+        "module": "system",
+        "moduleResolution": "node",
+        "outFile": "../dist/system.js",
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

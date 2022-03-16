@@ -1,0 +1,14 @@
+{
+    "include": [
+        "../app/*.ts"
+    ],
+    "compilerOptions": {
+        "outDir": "../dist",
+        "target": "es5",
+        "moduleResolution": "node",
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

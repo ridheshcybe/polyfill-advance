@@ -1,4 +1,4 @@
-it('import', () => import('../index.js'));
+it('import', () => import('../dist/index.js'));
 
 it('test GlobalThis', () => {
     const maker = (str) => {
@@ -13,7 +13,7 @@ it('test GlobalThis', () => {
 describe('check prototypes', () => {
     it('promise', () => {
         const promise = new Promise(() => { });
-        expect(promise._immediateFn).toBeDefined();
+        expect(promise.immediate).toBeDefined();
         expect(promise.timeOut).toBeDefined();
         expect(promise.then).toBeDefined();
         expect(promise.catch).toBeDefined();
