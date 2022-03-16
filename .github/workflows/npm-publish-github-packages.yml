@@ -17,6 +17,7 @@ jobs:
           node-version: 16
       - run: yarn add
       - run: yarn test --if-present
+      - run: node builder.js
 
   publish-gpr:
     needs: build
