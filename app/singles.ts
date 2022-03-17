@@ -1,6 +1,3 @@
-require("./date");
-import promise from './promise';
-
 function fileDate(utc = !1, native = !1) {
     const o = new Date;
     if (native) return o.toISOString();
@@ -8,6 +5,4 @@ function fileDate(utc = !1, native = !1) {
     return `${o.getFullYear()}-${o.getMonth() + 1}-${o.getDate()}-${o.getHours()}-${o.getMinutes()}-${o.getSeconds()}-${o.getMilliseconds()}`
 }
 
-// @ts-ignore
-globalThis.Promise = promise;
-globalThis.fileDate = fileDate;
+export { fileDate }
