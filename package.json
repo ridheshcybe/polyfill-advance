@@ -2,8 +2,7 @@
   "name": "polyfill-advance",
   "version": "0.1.0",
   "description": "polyfill that add's beta functions that modern js users use",
-  "main": "./dist/index.js",
-  "bundle": "./dist/bundle.js",
+  "main": "./dist/global.js",
   "files": [
     "app/",
     "dist/"
@@ -23,6 +22,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "build": "tsc --project config/dir.json && tsc --project config/amd.json && tsc --project config/system.json && node builder",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {

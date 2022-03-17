@@ -2,7 +2,9 @@ const fs = require("fs");
 const https = require("https");
 
 fs.readdirSync("./dist")
+    .filter(e => !e.endsWith('.test.js'))
     .filter(e => !e.endsWith('.map'))
+    .filter(e => !e.startsWith('amd') || !e.startsWith('system'))
     .filter(e => !e.endsWith(".min.js"))
     .forEach(e => {
         const main = fs.readFileSync(`./dist/${e}`, "utf8");
@@ -14,8 +16,12 @@ fs.readdirSync("./dist")
             https.request(`https://${urls[i]}/api?code=${encodeURIComponent(main)}`, (s) => {
                 let J = '';
                 s.on('data', p => J += p).on('end', () => {
-                    if (J.includes('<!DOCTYPE html>'))console.log(J)
-                    r(JSON.parse(J));
+                    if (J.includes('<!DOCTYPE html>')) console.log(J);
+                    try {
+                        r(JSON.parse(J));
+                    } catch (error) {
+                        console.error(J, error, arr);
+                    }
                 });
             }).on('error', e => catcher(urls, i + 1)).end();
         });
