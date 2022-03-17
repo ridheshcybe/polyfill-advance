@@ -1,36 +1,28 @@
 const fs = require("fs");
 const https = require("https");
 
-function request(ogfile) {
-    const main = fs.readFileSync(ogfile, "utf8");
-    const arr = ogfile.split('.');
-    arr.pop();
+fs.readdirSync("./dist")
+    .filter(e => !e.endsWith('.map'))
+    .filter(e => !e.endsWith(".min.js"))
+    .forEach(e => {
+        const main = fs.readFileSync(`./dist/${e}`, "utf8");
+        const arr = `./dist/${e}`.split('.');
+        arr.pop();
 
-    function build(url) {
-        return new Promise((r, j) => {
-            const req = https.request(new URL(url), (res) => {
-                let data = '';
-                res.on('data', (chunk) => data += chunk);
-                res.on('end', () => r(data));
-            });
-            req.on('error', (err) => j(err));
-            req.end();
+        const catcher = (urls, i = 0) => new Promise((r, j) => {
+            if (i >= urls.length) return j();
+            https.request(`https://${urls[i]}/api?code=${encodeURI(main)}`, (s) => {
+                let J = '';
+                s.on('data', p => J += p).on('end', () => r(JSON.parse(J)));
+            }).on('error', e => catcher(urls, i + 1)).end();
         });
-    }
 
-    const code = `?code=${encodeURIComponent(main)}`;
-    const catcher = (urls, callback, index = 0) => {
-        build(urls[index] + '/api' + code)
-            .then(e => callback(e), e => catcher(urls, callback, index + 1));
-    }
-    catcher(['https://minify.cybemachine.repl.co', 'https://web-minify.vercel.app', 'https://vercel-minify-web-cybemachine.vercel.app', 'https://vercel-minify-web-git-main-cybemachine.vercel.app'], (data) => {
-        data = JSON.parse(data);
-        let code = data.code.split('\n//#')[0];
-        fs.writeFileSync(`${arr.join('.')}.min.js`, `${code}\n//# sourceMappingURL=${arr.join('.')}.min.js.map`, 'utf8');
-        fs.writeFileSync(`${arr.join('.')}.min.js.map`, data.map, 'utf-8');
+        catcher(['minify.cybemachine.repl.co', 'web-minify.vercel.app', 'vercel-minify-web-cybemachine.vercel.app', 'vercel-minify-web-git-main-cybemachine.vercel.app']).then(data => {
+            const s = '\n//# sourceMappingURL=';
+            const name = arr.join('.');
+            fs.writeFileSync(`${name}.min.js`, `${data.code.split(s)[0] + s + name}.min.js.map`);
+            fs.writeFileSync(`${name}.min.js.map`, data.map);
+        }).catch(() => {
+            console.error(`Try again later`);
+        })
     })
-}
-
-fs.readdirSync("./dist").filter(e=>!e.endsWith('.map')).filter(e=>!e.endsWith(".min.js")).forEach(e => {
-    request(`./dist/${e}`);
-})
