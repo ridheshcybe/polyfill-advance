@@ -1,3 +1,4 @@
+require("./date");
 import promise from './promise';
 
 function fileDate(utc = !1, native = !1) {

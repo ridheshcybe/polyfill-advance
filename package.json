@@ -4,6 +4,10 @@
   "description": "polyfill that add's beta functions that modern js users use",
   "main": "./dist/index.js",
   "bundle": "./dist/bundle.js",
+  "files": [
+    "app/",
+    "dist/"
+  ],
   "maintainers": [
     "ridhesh w",
     "bryce d",

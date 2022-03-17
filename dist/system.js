@@ -1,3 +1,17 @@
+//@ts-ignore
+Date.prototype.utc = {};
+const props = {
+    hr: () => (new Date).getUTCHours(),
+    date: () => (new Date).getUTCDate(),
+    month: () => (new Date).getUTCMonth(),
+    min: () => (new Date).getUTCMinutes(),
+    sec: () => (new Date).getUTCSeconds(),
+    year: () => (new Date).getUTCFullYear(),
+    millisec: () => (new Date).getUTCMilliseconds()
+};
+// @ts-ignore
+for (const p in props)
+    Object.defineProperty(Date.prototype.utc, p, { get: props[p] });
 System.register("promise", [], function (exports_1, context_1) {
     "use strict";
     var promise;
@@ -81,7 +95,7 @@ System.register("promise", [], function (exports_1, context_1) {
 });
 System.register("index", ["promise"], function (exports_2, context_2) {
     "use strict";
-    var promise_1, props;
+    var promise_1;
     var __moduleName = context_2 && context_2.id;
     function fileDate(utc = !1, native = !1) {
         const o = new Date;
@@ -98,20 +112,7 @@ System.register("index", ["promise"], function (exports_2, context_2) {
             }
         ],
         execute: function () {
-            // @ts-ignore
-            Date.prototype.utc = {};
-            props = {
-                hr: () => (new Date).getUTCHours(),
-                date: () => (new Date).getUTCDate(),
-                month: () => (new Date).getUTCMonth(),
-                min: () => (new Date).getUTCMinutes(),
-                sec: () => (new Date).getUTCSeconds(),
-                year: () => (new Date).getUTCFullYear(),
-                millisec: () => (new Date).getUTCMilliseconds()
-            };
-            // @ts-ignore
-            for (const p in props)
-                Object.defineProperty(Date.prototype.utc, p, { get: props[p] });
+            require("./date");
             // @ts-ignore
             globalThis.Promise = promise_1.default;
             globalThis.fileDate = fileDate;
