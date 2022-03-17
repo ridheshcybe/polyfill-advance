@@ -11,9 +11,12 @@ fs.readdirSync("./dist")
 
         const catcher = (urls, i = 0) => new Promise((r, j) => {
             if (i >= urls.length) return j();
-            https.request(`https://${urls[i]}/api?code=${encodeURI(main)}`, (s) => {
+            https.request(`https://${urls[i]}/api?code=${encodeURIComponent(main)}`, (s) => {
                 let J = '';
-                s.on('data', p => J += p).on('end', () => r(JSON.parse(J)));
+                s.on('data', p => J += p).on('end', () => {
+                    if (J.includes('<!DOCTYPE html>'))console.log(J)
+                    r(JSON.parse(J));
+                });
             }).on('error', e => catcher(urls, i + 1)).end();
         });
 

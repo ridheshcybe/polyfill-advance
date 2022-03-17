@@ -8,21 +8,5 @@ function fileDate(utc = !1, native = !1) {
 }
 
 // @ts-ignore
-Date.prototype.utc = {};
-
-const props = {
-    hr: () => (new Date).getUTCHours(),
-    date: () => (new Date).getUTCDate(),
-    month: () => (new Date).getUTCMonth(),
-    min: () => (new Date).getUTCMinutes(),
-    sec: () => (new Date).getUTCSeconds(),
-    year: () => (new Date).getUTCFullYear(),
-    millisec: () => (new Date).getUTCMilliseconds()
-}
-
-// @ts-ignore
-for (const p in props) Object.defineProperty(Date.prototype.utc, p, { get: props[p] });
-
-// @ts-ignore
 globalThis.Promise = promise;
 globalThis.fileDate = fileDate;

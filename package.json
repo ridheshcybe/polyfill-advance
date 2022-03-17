@@ -11,7 +11,8 @@
     "regina f"
   ],
   "keywords": [
-    "cybe"
+    "cybe",
+    "ridhesh w"
   ],
   "repository": "https://github.com/cybemachine/polyfill-advance.git",
   "author": "cybe <https://www.github.com/cybemachine>",
@@ -21,14 +22,9 @@
     "prepublish": "yarn run build && yarn run test",
 
     "dirbuild": "tsc --project ./config/dir.json",
-
     "amdbuild": "tsc --project ./config/amd.json",
-
     "systembuild": "tsc --project ./config/system.json",
-
-    "filebuild": "yarn run amdbuild && yarn run systembuild",
-
-    "build": "yarn run dirbuild && yarn run filebuild && node builder",
+    "build": "yarn run dirbuild && yarn run amdbuild && yarn run systembuild && node builder",
 
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
