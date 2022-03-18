@@ -27,7 +27,7 @@ require("polyfill-advance/dist/promise.js");
 
 The polyfill uses the `Promise` so it basically extends the `Promise` object and can be used with it.
 
-#### put a timeout on promise resolution: timeOut(timeOutms, Promise)
+#### Put a timeout on promise resolution: timeOut(timeOutms, Promise)
 
 ###### Parameters
 
@@ -35,12 +35,37 @@ The polyfill uses the `Promise` so it basically extends the `Promise` object and
 2. `Promsie : Promise<any>`. Promise to be executed after timeOutms
 
 ```js
-Promise.timeOut(10 * 1000, new Promise((r, j) => {
-    console.log('hi!')
+Promise.timeOut(
+  10 * 1000,
+  new Promise((r, j) => {
+    console.log("hi!");
     r(void 0);
-}));
+  })
+);
 // 10 sec after
-// output: hi!
+```
+
+output
+```bash
+hi!
+```
+
+#### Check if promises settle as a resolve/reject: allSettled(Promises)
+
+#### Parameters
+
+1. `Promises: Array<Promise<any>>` array of Promise that can be reoslved or rejected.
+
+```js
+Promise.allSettled([
+    new Promise((r,j)=> r(null)),
+    new Promise((r,j)=> j(null))
+]).then(console.log)
+```
+
+expected Output:
+```bash
+[{ status:'fulfilled', value: null }, { status: 'rejected',  reason: null }]
 ```
 
 # Date
@@ -49,7 +74,7 @@ Promise.timeOut(10 * 1000, new Promise((r, j) => {
 
 ```js
 require("polyfill-advance/dist/date.js");
-```
+````
 
 ## Table of symbols
 
@@ -94,8 +119,12 @@ The polyfill uses the `Date.prototype` so it basically extends the `Date` object
 1. **Required** `formatString : string`. The string format.
 
 ```js
-const formattedDate = new Date(1532255320521).format("%f %D, %y");
-// Output: July 22, 2018
+console.log(new Date(1532255320521).format("%f %D, %y"));
+```
+
+Output
+```bash
+July 22, 2018
 ```
 
 The `format` method on the Date object will accept a string, which is the format with the **symbols**, as it's only argument. Please refer to the **table of symbols**.
