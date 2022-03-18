@@ -46,6 +46,7 @@ Promise.timeOut(
 ```
 
 output
+
 ```bash
 hi!
 ```
@@ -58,14 +59,35 @@ hi!
 
 ```js
 Promise.allSettled([
-    new Promise((r,j)=> r(null)),
-    new Promise((r,j)=> j(null))
-]).then(console.log)
+  new Promise((r, j) => r(null)),
+  new Promise((r, j) => j(null)),
+]).then(console.log);
 ```
 
 expected Output:
+
+```js
+[
+  { status: "fulfilled", value: null },
+  { status: "rejected", reason: null },
+];
+```
+
+#### Run a function immediately: immediate(Fn, afterEV)
+
+#### Parameters
+
+1. `Fn : VoidFunction` Function to be called immediately
+2. `afterEV : boolean` Execute the function after/before eventLoop
+
+```js
+Promise.immediate(() => console.log("after EV"), false);
+console.log("before EV");
+```
+Output
 ```bash
-[{ status:'fulfilled', value: null }, { status: 'rejected',  reason: null }]
+before EV
+after EV
 ```
 
 # Date
@@ -74,7 +96,7 @@ expected Output:
 
 ```js
 require("polyfill-advance/dist/date.js");
-````
+```
 
 ## Table of symbols
 
@@ -123,6 +145,7 @@ console.log(new Date(1532255320521).format("%f %D, %y"));
 ```
 
 Output
+
 ```bash
 July 22, 2018
 ```

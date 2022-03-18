@@ -25,12 +25,12 @@ Promise.timeOut = (ms: number, promise: Promise<any> = Promise.resolve()) => {
     });
 };
 
-Promise.allSettled = (promises) => Promise.all(promises.map(p => p
+Promise.allSettled = (promises = [new Promise((r, j) => r())]) => Promise.all(promises.map(p => p
     .then(value => ({ status: 'fulfilled', value }))
     .catch(reason => ({ status: 'rejected', reason }))
 ))
 
-Promise.immediate = (fn, aftereloop = false) => {
+Promise.immediate = (fn = () => { }, aftereloop = false) => {
     if (!aftereloop) return process.nextTick(fn);
     setTimeout(() => fn(), 0);
 };
