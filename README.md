@@ -93,6 +93,52 @@ before EV
 after EV
 ```
 
+
+## Promise.resolve(value)
+
+### Parameters
+
+1. **Required** `value: any` value to be reosolved with
+
+```js
+console.log(Promise.resolve(1))
+```
+Output:
+```js
+Promise {
+    1,
+    [Symbol(async_id_symbol)]: 85,
+    [Symbol(trigger_async_id_symbol)]: 5,
+    [Symbol(destroyed)]: { 
+          destroyed: false 
+    }
+}
+```
+
+<hr>
+
+## Promise.reject(reason)
+
+### Parameters
+
+1. **Required** `reason: any` resone to be rejected with
+
+```js
+console.log(Promise.reject(1))
+```
+
+Output:
+```js
+Promise {
+    <rejected> 1,
+    [Symbol(async_id_symbol)]: 138,
+    [Symbol(trigger_async_id_symbol)]: 5,
+    [Symbol(destroyed)]: {
+       destroyed: false 
+    }
+}
+```
+
 # Date
 
 ## Usage
