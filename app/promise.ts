@@ -1,5 +1,6 @@
 class promise {
-    finallycb: any = () => { };
+    finallycallback: any = () => { };
+    finallycb = () => { };
     value = null;
     called = false;
     onJ = null;
@@ -29,6 +30,15 @@ class promise {
         } catch (e) {
             d("r", e)
         }
+
+        Object.defineProperty(this, "finallycb", {
+            get() {
+                return self.finallycallback;
+            },
+            set(val) {
+                self.finallycallback = val;
+            }
+        })
     }
 
     then(cb) {

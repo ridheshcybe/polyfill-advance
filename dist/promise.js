@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var promise = /** @class */ (function () {
     function promise(exec) {
+        this.finallycallback = function () { };
         this.finallycb = function () { };
         this.value = null;
         this.called = false;
@@ -22,6 +23,14 @@ var promise = /** @class */ (function () {
         catch (e) {
             d("r", e);
         }
+        Object.defineProperty(this, "finallycb", {
+            get: function () {
+                return self.finallycallback;
+            },
+            set: function (val) {
+                self.finallycallback = val;
+            }
+        });
     }
     promise.prototype.then = function (cb) {
         this.onR = cb;
