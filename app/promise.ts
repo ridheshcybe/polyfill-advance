@@ -1,102 +1,53 @@
-class promise {
-    finallycallback: any = () => { };
-    finallycb = () => { };
-    value = null;
-    called = false;
-    onJ = null;
-    onR = null;
-    j = false;
-    f = false;
+//@ts-nocheck
 
-    static timeOut: (ms?: number) => Promise<unknown>;
-    static allSettled: (promises: any) => any;
-    static immediate: (fn: any, aftereloop?: boolean) => void;
-    static resolve: (val: any) => Promise<unknown>;
-    static reject: (reason: any) => Promise<unknown>;
-    static all: (promises: any) => Promise<unknown>;
-    static race: (promises: any) => promise;
-    constructor(exec) {
-        const self = this;
-
-        function d(e, f) {
-            let l = "r" == e ? self.onR : self.onJ;
-            "r" == e ? (self.f = !0) : (self.j = !0);
-            self.value = f;
-            "function" == typeof l && (l(f), self.called = !0)
-        }
-
-        try {
-            exec(e => d("r", e), e => d("j", e))
-        } catch (e) {
-            d("r", e)
-        }
-
-        Object.defineProperty(this, "finallycb", {
-            get() {
-                return self.finallycallback;
-            },
-            set(val) {
-                self.finallycallback = val;
-            }
-        })
-    }
-
-    then(cb) {
-        this.onR = cb;
-
-        if (this.f && !this.called) {
-            this.called = true;
-            this.finallycb();
-            this.onR(this.value);
-        }
-        return this;
-    }
-
-    catch(cb) {
-        this.onJ = cb;
-
-        if (this.j && !this.called) {
-            this.called = true;
-            this.finallycb();
-            this.onJ(this.value);
-        }
-
-        return this;
-    }
-
-    finally(cb) {
-        this.finallycb = cb;
-        return this;
+class TimeoutError extends Error {
+    constructor() {
+        super();
+        this.message = 'TimeoutError';
+        this.name = 'TimeoutError';
     }
 }
 
-promise.timeOut = function (ms = 1000) {
-    return new Promise((r, j) => setTimeout(r, ms))
+Promise.timeOut = (ms: number, promise: Promise<any> = Promise.resolve()) => {
+    var error = new TimeoutError(),
+        timeout;
+
+    return Promise.race([
+        promise,
+        new Promise((_, j) => {
+            timeout = setTimeout(() => j(error), ms);
+        }),
+    ]).then((v) => {
+        clearTimeout(timeout);
+    }, (err) => {
+        clearTimeout(timeout);
+        throw err;
+    });
 };
 
-promise.allSettled = (promises) => promise.all(promises.map(p => p
+Promise.allSettled = (promises) => Promise.all(promises.map(p => p
     .then(value => ({ status: 'fulfilled', value }))
     .catch(reason => ({ status: 'rejected', reason }))
 ))
 
-promise.immediate = (fn, aftereloop = false) => {
+Promise.immediate = (fn, aftereloop = false) => {
     if (!aftereloop) return process.nextTick(fn);
     setTimeout(() => fn(), 0);
-}
+};
 
-promise.resolve = (val) => new Promise((r, _) => {
+Promise.resolve = (val) => new Promise((r, _) => {
     r(val);
 });
 
-promise.reject = (reason) => new Promise((_, r) => {
+Promise.reject = (reason) => new Promise((_, r) => {
     r(reason);
 })
 
-promise.race = (promises) => new promise((r, j) => {
+Promise.race = (promises) => new Promise((r, j) => {
     promises.map((promise) => promise.then(r, j));
 });
 
-promise.all = (promises) => {
+Promise.all = (promises) => {
     let fulfilledPromises = [],
         result = [];
 
@@ -112,4 +63,4 @@ promise.all = (promises) => {
     });
 }
 
-export default promise;
+export default Promise;

@@ -1,23 +1,54 @@
 <!-- @format -->
+
 # polyfill-advance
 
 npm: https://www.npmjs.com/package/polyfill-advance
 github: https://github.com/cybemachine/polyfill-advance
 
 ## Usage
+
 `npm install polyfill-advance`
 
 Then add the following before your other codes.
 
 ```js
-require('polyfill-advance');
+require("polyfill-advance");
 ```
 
-# Date
+# Promise
+
 ## Usage
 
 ```js
-require('polyfill-advance/dist/date.js');
+require("polyfill-advance/dist/promise.js");
+```
+
+## API
+
+The polyfill uses the `Promise` so it basically extends the `Promise` object and can be used with it.
+
+#### put a timeout on promise resolution: timeOut(timeOutms, Promise)
+
+###### Parameters
+
+1. `timeOutms : number`. The timout in milliseconds to wait before the Promise is executed
+2. `Promsie : Promise<any>`. Promise to be executed after timeOutms
+
+```js
+Promise.timeOut(10 * 1000, new Promise((r, j) => {
+    console.log('hi!')
+    r(void 0);
+}));
+// 10 sec after
+// output: hi!
+```
+
+# Date
+
+## Usage
+
+```js
+require("polyfill-advance/dist/date.js");
 ```
 
 ## Table of symbols
@@ -63,7 +94,7 @@ The polyfill uses the `Date.prototype` so it basically extends the `Date` object
 1. **Required** `formatString : string`. The string format.
 
 ```js
-const formattedDate = new Date(1532255320521).format('%f %D, %y');
+const formattedDate = new Date(1532255320521).format("%f %D, %y");
 // Output: July 22, 2018
 ```
 
@@ -103,19 +134,19 @@ const current = new Date(1532258235447); // Jul 22 2018 19:17:15
 const future = new Date(1534245435447); // Aug 14 2018 19:17:15
 const past = new Date(1530271035447); // Jun 29 2018 19:17:15
 
-console.log('time remaining:', current.timeDiff(future, '%D %H %N %S')); // time remaining: 23 12 00 00
-console.log('time past:', past.timeDiff(current, '%D %H %N %S')); // time past: 23 12 00 00
+console.log("time remaining:", current.timeDiff(future, "%D %H %N %S")); // time remaining: 23 12 00 00
+console.log("time past:", past.timeDiff(current, "%D %H %N %S")); // time past: 23 12 00 00
 
 // new Date(-1) would return Thu Jan 01 1970 07:59:59 GMT+0800
 // compute time passed since Thu Jan 01 1970 07:59:59 GMT+0800 to the datetime I was writing time
 console.log(
-  'time past (with year):',
-  new Date(-1).timeDiff(new Date('Mon Aug 27 2018 14:44:18'), '%Y %D %H %N %S')
+  "time past (with year):",
+  new Date(-1).timeDiff(new Date("Mon Aug 27 2018 14:44:18"), "%Y %D %H %N %S")
 ); // 48 250 06 44 18
 
 console.log(
-  'time past (with year):',
-  new Date(-1).timeDiff(new Date('Mon Aug 27 2018 14:44:18'), '%D %H %N %S')
+  "time past (with year):",
+  new Date(-1).timeDiff(new Date("Mon Aug 27 2018 14:44:18"), "%D %H %N %S")
 ); // 17,770 06 44 18
 ```
 
@@ -128,7 +159,10 @@ To get the time past, you provide a `date` (bigger milliseconds) to a `past date
 If you happen to provide a date that has past, i.e. **smaller milliseconds** (minus) **bigger milliseconds**, you'll get zeros. E.g.
 
 ```js
-console.log('time remaining (negative):', future.timeDiff(current, '%D %H %N %S')); // 00 00 00 00
+console.log(
+  "time remaining (negative):",
+  future.timeDiff(current, "%D %H %N %S")
+); // 00 00 00 00
 ```
 
 #### Getting time ago: timeAgo(Date, Symbols)
@@ -144,8 +178,14 @@ Like the `timeDiff`, the `timeAgo` counts **up**. So the time past increases eve
 const past = new Date(1532258235447); // Jul 22 2018 19:17:15
 const current = new Date(1782680641000); // Jun 29 2026 05:04:01
 
-console.log('time ago (with year):', current.timeAgo(past, ['%y', '%d', '%h', '%n', '%s'])); // 8 years 343 days 21 hours 46 minutes 45 seconds ago
-console.log('time ago (without year):', current.timeAgo(past, ['%d', '%h', '%n', '%s'])); // 2,898 days 21 hours 46 minutes 45 seconds ago
+console.log(
+  "time ago (with year):",
+  current.timeAgo(past, ["%y", "%d", "%h", "%n", "%s"])
+); // 8 years 343 days 21 hours 46 minutes 45 seconds ago
+console.log(
+  "time ago (without year):",
+  current.timeAgo(past, ["%d", "%h", "%n", "%s"])
+); // 2,898 days 21 hours 46 minutes 45 seconds ago
 ```
 
 Basically it's like saying _"from this point in time, tell me how much time past since this point in time"_.
@@ -159,6 +199,9 @@ Basically it's like saying _"from this point in time, tell me how much time past
 The `age` method is useful when you want to get the age of a particular person using his/her birthdate.
 
 ```js
-console.log('age:', new Date('February 9, 1995').age()); // 23 as of the date of writing
-console.log('age:', new Date('February 9, 1995').age(new Date('February 9, 2000'))); // 5 as of the date of writing
+console.log("age:", new Date("February 9, 1995").age()); // 23 as of the date of writing
+console.log(
+  "age:",
+  new Date("February 9, 1995").age(new Date("February 9, 2000"))
+); // 5 as of the date of writing
 ```
