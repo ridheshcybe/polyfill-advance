@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define("date", ["require", "exports"], function (require, exports) {
+define("modules/Date/index", ["require", "exports"], function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -162,7 +162,7 @@ define("date", ["require", "exports"], function (require, exports) {
     exports.default = Date;
 });
 //@ts-nocheck
-define("promise", ["require", "exports"], function (require, exports) {
+define("modules/Promise/index", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var TimeoutError = /** @class */ (function (_super) {
@@ -176,7 +176,7 @@ define("promise", ["require", "exports"], function (require, exports) {
         return TimeoutError;
     }(Error));
     Promise.timeOut = function (ms, promise) {
-        if (promise === void 0) { promise = Promise.resolve(); }
+        if (promise === void 0) { promise = Promise.resolve(null); }
         var error = new TimeoutError(), timeout;
         return Promise.race([
             promise,
@@ -190,10 +190,14 @@ define("promise", ["require", "exports"], function (require, exports) {
             throw err;
         });
     };
-    Promise.allSettled = function (promises) { return Promise.all(promises.map(function (p) { return p
-        .then(function (value) { return ({ status: 'fulfilled', value: value }); })
-        .catch(function (reason) { return ({ status: 'rejected', reason: reason }); }); })); };
+    Promise.allSettled = function (promises) {
+        if (promises === void 0) { promises = [new Promise(function (r, j) { return r(); })]; }
+        return Promise.all(promises.map(function (p) { return p
+            .then(function (value) { return ({ status: 'fulfilled', value: value }); })
+            .catch(function (reason) { return ({ status: 'rejected', reason: reason }); }); }));
+    };
     Promise.immediate = function (fn, aftereloop) {
+        if (fn === void 0) { fn = function () { }; }
         if (aftereloop === void 0) { aftereloop = false; }
         if (!aftereloop)
             return process.nextTick(fn);
@@ -223,13 +227,13 @@ define("promise", ["require", "exports"], function (require, exports) {
     };
     exports.default = Promise;
 });
-define("singles", ["require", "exports"], function (require, exports) {
+define("modules/singles/index", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.fileDate = void 0;
-    function fileDate(utc, native) {
-        if (utc === void 0) { utc = !1; }
+    function fileDate(native, utc) {
         if (native === void 0) { native = !1; }
+        if (utc === void 0) { utc = !1; }
         var o = new Date;
         if (native)
             return o.toISOString();
@@ -238,16 +242,17 @@ define("singles", ["require", "exports"], function (require, exports) {
         return "".concat(o.getFullYear(), "-").concat(o.getMonth() + 1, "-").concat(o.getDate(), "-").concat(o.getHours(), "-").concat(o.getMinutes(), "-").concat(o.getSeconds(), "-").concat(o.getMilliseconds());
     }
     exports.fileDate = fileDate;
+    globalThis.fileDate = fileDate;
 });
-define("global", ["require", "exports", "date", "promise", "singles"], function (require, exports, date_1, promise_1, singles_1) {
+define("global", ["require", "exports", "modules/Date/index", "modules/Promise/index", "modules/singles/index"], function (require, exports, Date_1, Promise_1, singles_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.date = exports.promise = exports.fileDate = void 0;
-    exports.date = date_1.default;
-    exports.promise = promise_1.default;
+    exports.date = Date_1.default;
+    exports.promise = Promise_1.default;
     Object.defineProperty(exports, "fileDate", { enumerable: true, get: function () { return singles_1.fileDate; } });
-    global.Date = date_1.default;
-    global.Promise = promise_1.default;
+    global.Date = Date_1.default;
+    global.Promise = Promise_1.default;
     global.fileDate = singles_1.fileDate;
 });
 //# sourceMappingURL=amd.js.map

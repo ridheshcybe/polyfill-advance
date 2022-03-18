@@ -1,6 +1,6 @@
-import date from './date';
-import promise from './promise';
-import { fileDate } from './singles';
+import date from './modules/Date';
+import promise from './modules/Promise';
+import { fileDate } from './modules/singles';
 
 global.Date = date;
 global.Promise = promise;

@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.date = exports.promise = exports.fileDate = void 0;
-var date_1 = require("./date");
-exports.date = date_1.default;
-var promise_1 = require("./promise");
-exports.promise = promise_1.default;
-var singles_1 = require("./singles");
+var Date_1 = require("./modules/Date");
+exports.date = Date_1.default;
+var Promise_1 = require("./modules/Promise");
+exports.promise = Promise_1.default;
+var singles_1 = require("./modules/singles");
 Object.defineProperty(exports, "fileDate", { enumerable: true, get: function () { return singles_1.fileDate; } });
-global.Date = date_1.default;
-global.Promise = promise_1.default;
+global.Date = Date_1.default;
+global.Promise = Promise_1.default;
 global.fileDate = singles_1.fileDate;
 //# sourceMappingURL=global.js.map

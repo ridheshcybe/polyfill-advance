@@ -1,5 +1,5 @@
 //@ts-nocheck
-import './date';
+import '.';
 
 ['timeDiff', 'format'].forEach(method => {
     expect(Date.prototype[method]).toBeDefined();

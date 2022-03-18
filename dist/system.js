@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-System.register("date", [], function (exports_1, context_1) {
+System.register("modules/Date/index", [], function (exports_1, context_1) {
     "use strict";
     var _this, spad, parseSymbols;
     _this = this;
@@ -168,7 +168,7 @@ System.register("date", [], function (exports_1, context_1) {
     };
 });
 //@ts-nocheck
-System.register("promise", [], function (exports_2, context_2) {
+System.register("modules/Promise/index", [], function (exports_2, context_2) {
     "use strict";
     var TimeoutError;
     var __moduleName = context_2 && context_2.id;
@@ -186,7 +186,7 @@ System.register("promise", [], function (exports_2, context_2) {
                 return TimeoutError;
             }(Error));
             Promise.timeOut = function (ms, promise) {
-                if (promise === void 0) { promise = Promise.resolve(); }
+                if (promise === void 0) { promise = Promise.resolve(null); }
                 var error = new TimeoutError(), timeout;
                 return Promise.race([
                     promise,
@@ -200,10 +200,14 @@ System.register("promise", [], function (exports_2, context_2) {
                     throw err;
                 });
             };
-            Promise.allSettled = function (promises) { return Promise.all(promises.map(function (p) { return p
-                .then(function (value) { return ({ status: 'fulfilled', value: value }); })
-                .catch(function (reason) { return ({ status: 'rejected', reason: reason }); }); })); };
+            Promise.allSettled = function (promises) {
+                if (promises === void 0) { promises = [new Promise(function (r, j) { return r(); })]; }
+                return Promise.all(promises.map(function (p) { return p
+                    .then(function (value) { return ({ status: 'fulfilled', value: value }); })
+                    .catch(function (reason) { return ({ status: 'rejected', reason: reason }); }); }));
+            };
             Promise.immediate = function (fn, aftereloop) {
+                if (fn === void 0) { fn = function () { }; }
                 if (aftereloop === void 0) { aftereloop = false; }
                 if (!aftereloop)
                     return process.nextTick(fn);
@@ -235,12 +239,12 @@ System.register("promise", [], function (exports_2, context_2) {
         }
     };
 });
-System.register("singles", [], function (exports_3, context_3) {
+System.register("modules/singles/index", [], function (exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
-    function fileDate(utc, native) {
-        if (utc === void 0) { utc = !1; }
+    function fileDate(native, utc) {
         if (native === void 0) { native = !1; }
+        if (utc === void 0) { utc = !1; }
         var o = new Date;
         if (native)
             return o.toISOString();
@@ -252,31 +256,32 @@ System.register("singles", [], function (exports_3, context_3) {
     return {
         setters: [],
         execute: function () {
+            globalThis.fileDate = fileDate;
         }
     };
 });
-System.register("global", ["date", "promise", "singles"], function (exports_4, context_4) {
+System.register("global", ["modules/Date/index", "modules/Promise/index", "modules/singles/index"], function (exports_4, context_4) {
     "use strict";
-    var date_1, promise_1, singles_1;
+    var Date_1, Promise_1, singles_1;
     var __moduleName = context_4 && context_4.id;
     return {
         setters: [
-            function (date_1_1) {
-                date_1 = date_1_1;
+            function (Date_1_1) {
+                Date_1 = Date_1_1;
             },
-            function (promise_1_1) {
-                promise_1 = promise_1_1;
+            function (Promise_1_1) {
+                Promise_1 = Promise_1_1;
             },
             function (singles_1_1) {
                 singles_1 = singles_1_1;
             }
         ],
         execute: function () {
-            exports_4("date", date_1.default);
-            exports_4("promise", promise_1.default);
+            exports_4("date", Date_1.default);
+            exports_4("promise", Promise_1.default);
             exports_4("fileDate", singles_1.fileDate);
-            global.Date = date_1.default;
-            global.Promise = promise_1.default;
+            global.Date = Date_1.default;
+            global.Promise = Promise_1.default;
             global.fileDate = singles_1.fileDate;
         }
     };

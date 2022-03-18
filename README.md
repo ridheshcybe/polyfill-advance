@@ -20,7 +20,7 @@ require("polyfill-advance");
 ## Usage
 
 ```js
-require("polyfill-advance/dist/promise.js");
+require("polyfill-advance/dist/modules/Promise");
 ```
 
 <hr>
@@ -189,7 +189,7 @@ Array [3, "foo"]
 ## Usage
 
 ```js
-require("polyfill-advance/dist/date.js");
+require("polyfill-advance/dist/modules/date");
 ```
 
 ## Table of symbols
@@ -357,7 +357,7 @@ console.log(
 ## Usage
 
 ```js
-require("polyfill-advance/dist/singles.js");
+require("polyfill-advance/dist/modules/singles");
 ```
 
 <hr>

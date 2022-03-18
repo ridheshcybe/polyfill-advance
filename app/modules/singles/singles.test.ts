@@ -1,4 +1,4 @@
-import { fileDate } from './singles';
+import { fileDate } from '.';
 
 it('FileDate check', () => {
     expect(fileDate()).toBeDefined();

@@ -1,4 +1,4 @@
-import promise from './Promise';
+import promise from '.';
 
 describe("Promise", () => {
     describe('dynamic', () => {

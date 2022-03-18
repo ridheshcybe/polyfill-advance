@@ -144,4 +144,4 @@ Date.prototype.utc = {
     }
 };
 exports.default = Date;
-//# sourceMappingURL=date.js.map
+//# sourceMappingURL=index.js.map

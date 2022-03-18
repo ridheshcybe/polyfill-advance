@@ -27,7 +27,7 @@ var TimeoutError = /** @class */ (function (_super) {
     return TimeoutError;
 }(Error));
 Promise.timeOut = function (ms, promise) {
-    if (promise === void 0) { promise = Promise.resolve(); }
+    if (promise === void 0) { promise = Promise.resolve(null); }
     var error = new TimeoutError(), timeout;
     return Promise.race([
         promise,
@@ -41,10 +41,14 @@ Promise.timeOut = function (ms, promise) {
         throw err;
     });
 };
-Promise.allSettled = function (promises) { return Promise.all(promises.map(function (p) { return p
-    .then(function (value) { return ({ status: 'fulfilled', value: value }); })
-    .catch(function (reason) { return ({ status: 'rejected', reason: reason }); }); })); };
+Promise.allSettled = function (promises) {
+    if (promises === void 0) { promises = [new Promise(function (r, j) { return r(); })]; }
+    return Promise.all(promises.map(function (p) { return p
+        .then(function (value) { return ({ status: 'fulfilled', value: value }); })
+        .catch(function (reason) { return ({ status: 'rejected', reason: reason }); }); }));
+};
 Promise.immediate = function (fn, aftereloop) {
+    if (fn === void 0) { fn = function () { }; }
     if (aftereloop === void 0) { aftereloop = false; }
     if (!aftereloop)
         return process.nextTick(fn);
@@ -73,4 +77,4 @@ Promise.all = function (promises) {
     });
 };
 exports.default = Promise;
-//# sourceMappingURL=promise.js.map
+//# sourceMappingURL=index.js.map
