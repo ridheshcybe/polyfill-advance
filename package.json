@@ -22,7 +22,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "tsc --project config/dir.json && tsc --project config/amd.json && tsc --project config/system.json && node builder",
+    "build": "tsc --project config/dir.json && tsc --project config/amd.json && tsc --project config/system.json",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
