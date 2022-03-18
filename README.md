@@ -351,3 +351,24 @@ console.log(
   new Date("February 9, 1995").age(new Date("February 9, 2000"))
 ); // 5 as of the date of writing
 ```
+
+# singles
+
+## Usage
+
+```js
+require("polyfill-advance/dist/singles.js");
+```
+
+<hr>
+
+## API
+
+The polyfill uses the `globalThis` so it basically add's itself into everyfile that required this file
+
+## fileDate(native, utc)
+
+### Parameters
+
+1. `native: boolean` use the toISOString method to return the string
+2. `utc: boolean` use the UTC method
