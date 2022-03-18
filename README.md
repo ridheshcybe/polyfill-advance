@@ -22,14 +22,15 @@ require("polyfill-advance");
 ```js
 require("polyfill-advance/dist/promise.js");
 ```
+<hr>
 
 ## API
 
 The polyfill uses the `Promise` so it basically extends the `Promise` object and can be used with it.
 
-#### Put a timeout on promise resolution: timeOut(timeOutms, Promise)
+## Promise.timeOut(timeOutms, Promise)
 
-###### Parameters
+### Parameters
 
 1. `timeOutms : number`. The timout in milliseconds to wait before the Promise is executed
 2. `Promsie : Promise<any>`. Promise to be executed after timeOutms
@@ -50,10 +51,11 @@ output
 ```bash
 hi!
 ```
+<hr>
 
-#### Check if promises settle as a resolve/reject: allSettled(Promises)
+## Promise.allSettled(Promises)
 
-#### Parameters
+### Parameters
 
 1. `Promises: Array<Promise<any>>` array of Promise that can be reoslved or rejected.
 
@@ -72,10 +74,11 @@ expected Output:
   { status: "rejected", reason: null },
 ];
 ```
+<hr>
 
-#### Run a function immediately: immediate(Fn, afterEV)
+## Promise.immediate(Fn, afterEV)
 
-#### Parameters
+### Parameters
 
 1. `Fn : VoidFunction` Function to be called immediately
 2. `afterEV : boolean` Execute the function after/before eventLoop
@@ -136,7 +139,7 @@ The polyfill uses the `Date.prototype` so it basically extends the `Date` object
 
 #### Formatting dates: format(formatString)
 
-###### Parameters
+##### Parameters
 
 1. **Required** `formatString : string`. The string format.
 
@@ -174,7 +177,7 @@ You can provide whatever format you like, you just need to specify the correct s
 
 - This method does not support the symbol `%m | %M` yet.
 
-###### Parameters
+##### Parameters
 
 1. **Required** `Milliseconds : Date.now() | new Date()` object.
 2. **Required** `Format : string`. Refer to the `format` method and **table of symbols**.
@@ -219,7 +222,7 @@ console.log(
 
 #### Getting time ago: timeAgo(Date, Symbols)
 
-###### Parameters
+##### Parameters
 
 1. **Required** `millseconds: Date.now() | new Date()`. The past.
 2. **Required** `symbols : array`. Which is the symbols you want to get, in the case above we wanted to get the `days`, `hours`, `minutes`, and `seconds`. Please refer to the **table of symbols**
@@ -244,7 +247,7 @@ Basically it's like saying _"from this point in time, tell me how much time past
 
 #### The `age` method: age([Date])
 
-###### Parameters
+##### Parameters
 
 1. **Optional** `Date : Date.now() | new Date()`. The relative date. Defaults to `Date.now()`.
 
