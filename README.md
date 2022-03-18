@@ -152,7 +152,7 @@ Promise {
 
 ### Parameters
 
-1. **Required** `Promises: Promise<any>[]` Promises that should be
+1. **Required** `Promises: Promise<any>[]` Promises that should be raced with
 
 ```js
 Promise.race(
@@ -163,6 +163,25 @@ Promise.race(
 Output:
 ```js
 j
+```
+
+<hr>
+
+## Promise.all(Promises)
+
+### Parameters
+
+1. **Required** `Promises: Promise<any>[]` promises to be resolved to an array of the results of the input promises
+
+```js
+Promise.all([Promise.resolve(3), new Promise((resolve, reject) => {
+  setTimeout(resolve, 100, 'foo');
+})]).then(console.log);
+```
+
+Output:
+```bash
+Array [3, "foo"]
 ```
 
 # Date
