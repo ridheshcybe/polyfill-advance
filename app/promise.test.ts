@@ -1,8 +1,8 @@
-import promise from './promise';
+import promise from './Promise';
 
 describe("Promise", () => {
     describe('dynamic', () => {
-        const p = new promise((r, j) => r());
+        const p = new promise((r, j) => r(void 0));
 
         ['then', 'catch'].forEach(e => {
             it(`defines ${e}()`, () => {
