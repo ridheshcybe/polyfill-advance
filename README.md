@@ -22,6 +22,7 @@ require("polyfill-advance");
 ```js
 require("polyfill-advance/dist/promise.js");
 ```
+
 <hr>
 
 ## API
@@ -51,6 +52,7 @@ output
 ```bash
 hi!
 ```
+
 <hr>
 
 ## Promise.allSettled(Promises)
@@ -74,6 +76,7 @@ expected Output:
   { status: "rejected", reason: null },
 ];
 ```
+
 <hr>
 
 ## Promise.immediate(Fn, afterEV)
@@ -87,12 +90,13 @@ expected Output:
 Promise.immediate(() => console.log("after EV"), false);
 console.log("before EV");
 ```
+
 Output
+
 ```bash
 before EV
 after EV
 ```
-
 
 ## Promise.resolve(value)
 
@@ -101,16 +105,18 @@ after EV
 1. **Required** `value: any` value to be reosolved with
 
 ```js
-console.log(Promise.resolve(1))
+console.log(Promise.resolve(1));
 ```
+
 Output:
+
 ```js
 Promise {
     1,
     [Symbol(async_id_symbol)]: 85,
     [Symbol(trigger_async_id_symbol)]: 5,
-    [Symbol(destroyed)]: { 
-          destroyed: false 
+    [Symbol(destroyed)]: {
+          destroyed: false
     }
 }
 ```
@@ -124,19 +130,39 @@ Promise {
 1. **Required** `reason: any` resone to be rejected with
 
 ```js
-console.log(Promise.reject(1))
+console.log(Promise.reject(1));
 ```
 
 Output:
+
 ```js
 Promise {
     <rejected> 1,
     [Symbol(async_id_symbol)]: 138,
     [Symbol(trigger_async_id_symbol)]: 5,
     [Symbol(destroyed)]: {
-       destroyed: false 
+       destroyed: false
     }
 }
+```
+
+<hr>
+
+## Promise.race(Promises)
+
+### Parameters
+
+1. **Required** `Promises: Promise<any>[]` Promises that should be
+
+```js
+Promise.race(
+  new Promise((r, j) => setTimeout(() => r("j"), 10)),
+  new Promise((r, j) => setTimeout(() => r("r"), 20))
+);
+```
+Output:
+```js
+j
 ```
 
 # Date

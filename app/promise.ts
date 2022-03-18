@@ -8,7 +8,7 @@ class TimeoutError extends Error {
     }
 }
 
-Promise.timeOut = (ms: number, promise: Promise<any> = Promise.resolve()) => {
+Promise.timeOut = (ms: number, promise: Promise<any> = Promise.resolve(null)) => {
     var error = new TimeoutError(),
         timeout;
 
