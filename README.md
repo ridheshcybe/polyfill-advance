@@ -372,3 +372,37 @@ The polyfill uses the `globalThis` so it basically add's itself into everyfile t
 
 1. `native: boolean` use the toISOString method to return the string
 2. `utc: boolean` use the UTC method
+
+## native
+
+```js
+console.log(fileDate(true));
+```
+
+Output:
+```yml
+2022-03-18T17:34:35.840Z
+```
+<hr>
+
+## UTC
+
+```js
+console.log(fileDate(false, true))
+```
+
+Output:
+```yml
+2022-3-18-17-36-54-597
+```
+
+## LocalDate
+
+```js
+console.log(fileDate())
+```
+
+Output:
+```yml
+2022-3-18-20-23-12-000
+```
