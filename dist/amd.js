@@ -1,3 +1,18 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 define("date", ["require", "exports"], function (require, exports) {
     "use strict";
     var _this = this;
@@ -146,88 +161,54 @@ define("date", ["require", "exports"], function (require, exports) {
     };
     exports.default = Date;
 });
+//@ts-nocheck
 define("promise", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var promise = /** @class */ (function () {
-        function promise(exec) {
-            this.finallycallback = function () { };
-            this.finallycb = function () { };
-            this.value = null;
-            this.called = false;
-            this.onJ = null;
-            this.onR = null;
-            this.j = false;
-            this.f = false;
-            var self = this;
-            function d(e, f) {
-                var l = "r" == e ? self.onR : self.onJ;
-                "r" == e ? (self.f = !0) : (self.j = !0);
-                self.value = f;
-                "function" == typeof l && (l(f), self.called = !0);
-            }
-            try {
-                exec(function (e) { return d("r", e); }, function (e) { return d("j", e); });
-            }
-            catch (e) {
-                d("r", e);
-            }
-            Object.defineProperty(this, "finallycb", {
-                get: function () {
-                    return self.finallycallback;
-                },
-                set: function (val) {
-                    self.finallycallback = val;
-                }
-            });
+    var TimeoutError = /** @class */ (function (_super) {
+        __extends(TimeoutError, _super);
+        function TimeoutError() {
+            var _this = _super.call(this) || this;
+            _this.message = 'TimeoutError';
+            _this.name = 'TimeoutError';
+            return _this;
         }
-        promise.prototype.then = function (cb) {
-            this.onR = cb;
-            if (this.f && !this.called) {
-                this.called = true;
-                this.finallycb();
-                this.onR(this.value);
-            }
-            return this;
-        };
-        promise.prototype.catch = function (cb) {
-            this.onJ = cb;
-            if (this.j && !this.called) {
-                this.called = true;
-                this.finallycb();
-                this.onJ(this.value);
-            }
-            return this;
-        };
-        promise.prototype.finally = function (cb) {
-            this.finallycb = cb;
-            return this;
-        };
-        return promise;
-    }());
-    promise.timeOut = function (ms) {
-        if (ms === void 0) { ms = 1000; }
-        return new Promise(function (r, j) { return setTimeout(r, ms); });
+        return TimeoutError;
+    }(Error));
+    Promise.timeOut = function (ms, promise) {
+        if (promise === void 0) { promise = Promise.resolve(); }
+        var error = new TimeoutError(), timeout;
+        return Promise.race([
+            promise,
+            new Promise(function (_, j) {
+                timeout = setTimeout(function () { return j(error); }, ms);
+            }),
+        ]).then(function (v) {
+            clearTimeout(timeout);
+        }, function (err) {
+            clearTimeout(timeout);
+            throw err;
+        });
     };
-    promise.allSettled = function (promises) { return promise.all(promises.map(function (p) { return p
+    Promise.allSettled = function (promises) { return Promise.all(promises.map(function (p) { return p
         .then(function (value) { return ({ status: 'fulfilled', value: value }); })
         .catch(function (reason) { return ({ status: 'rejected', reason: reason }); }); })); };
-    promise.immediate = function (fn, aftereloop) {
+    Promise.immediate = function (fn, aftereloop) {
         if (aftereloop === void 0) { aftereloop = false; }
         if (!aftereloop)
             return process.nextTick(fn);
         setTimeout(function () { return fn(); }, 0);
     };
-    promise.resolve = function (val) { return new Promise(function (r, _) {
+    Promise.resolve = function (val) { return new Promise(function (r, _) {
         r(val);
     }); };
-    promise.reject = function (reason) { return new Promise(function (_, r) {
+    Promise.reject = function (reason) { return new Promise(function (_, r) {
         r(reason);
     }); };
-    promise.race = function (promises) { return new promise(function (r, j) {
+    Promise.race = function (promises) { return new Promise(function (r, j) {
         promises.map(function (promise) { return promise.then(r, j); });
     }); };
-    promise.all = function (promises) {
+    Promise.all = function (promises) {
         var fulfilledPromises = [], result = [];
         return new Promise(function (resolve, reject) {
             promises.forEach(function (promise, index) { return promise.then(function (val) {
@@ -240,7 +221,7 @@ define("promise", ["require", "exports"], function (require, exports) {
             }); });
         });
     };
-    exports.default = promise;
+    exports.default = Promise;
 });
 define("singles", ["require", "exports"], function (require, exports) {
     "use strict";
@@ -265,5 +246,8 @@ define("global", ["require", "exports", "date", "promise", "singles"], function 
     exports.date = date_1.default;
     exports.promise = promise_1.default;
     Object.defineProperty(exports, "fileDate", { enumerable: true, get: function () { return singles_1.fileDate; } });
+    global.Date = date_1.default;
+    global.Promise = promise_1.default;
+    global.fileDate = singles_1.fileDate;
 });
 //# sourceMappingURL=amd.js.map

@@ -7,4 +7,7 @@ var promise_1 = require("./promise");
 exports.promise = promise_1.default;
 var singles_1 = require("./singles");
 Object.defineProperty(exports, "fileDate", { enumerable: true, get: function () { return singles_1.fileDate; } });
+global.Date = date_1.default;
+global.Promise = promise_1.default;
+global.fileDate = singles_1.fileDate;
 //# sourceMappingURL=global.js.map
