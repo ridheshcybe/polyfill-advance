@@ -1,7 +1,7 @@
 {
     "include": [
         "../app/*.ts",
-        "./app/modules/**/*.ts"
+        "../app/modules/**/*.ts"
     ],
     "compilerOptions": {
         "outDir": "../dist",

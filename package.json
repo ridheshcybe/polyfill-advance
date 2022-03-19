@@ -1,6 +1,6 @@
 {
   "name": "polyfill-advance",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "polyfill that add's beta functions that modern js users use",
   "main": "./dist/global.js",
   "files": [
