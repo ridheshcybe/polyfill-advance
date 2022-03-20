@@ -16,6 +16,81 @@ Then add the following before your other codes.
 require("polyfill-advance");
 ```
 
+# Object
+
+## Usage
+
+```js
+require("polyfill-advance/dist/modules/Object");
+```
+
+<hr>
+
+## API
+
+The polyfill uses the `Object` so it basically extends the `Object.prototype` object and can be used with it.
+
+## Object.isArguments(val)
+
+### Parameters
+
+1. `val : any`. The thing to check if it is arguments https://mzl.la/3JDMFI8
+
+```js
+console.log(Object.isArguments({}));
+
+function a(){
+  Object.isArguments(arguments);
+};
+
+console.log(Object.isArguments(a()))
+```
+
+output
+
+```bash
+false
+true
+```
+
+<hr>
+
+
+## Object.keys(obj)
+
+### Parameters
+
+1. `obj : Object`. Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
+
+```js
+console.log(Object.isArguments({}));
+
+function a(){
+  Object.isArguments(arguments);
+};
+
+console.log(Object.isArguments(a()))
+```
+
+output
+
+```bash
+false
+true
+```
+
+
+
+<!-- ## Object.assign(
+## Object.is(
+## Object.setPrototypeOf(
+## Object.getPrototypeOf(
+## Object.getOwnPropertyNames(
+## Object.create(
+## Object.defineProperty(
+## Object.defineProperties(
+## Object.freeze( -->
+
 # Promise
 
 ## Usage

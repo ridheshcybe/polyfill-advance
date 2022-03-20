@@ -122,9 +122,7 @@ if (!Object.keys) {
         var isString = isObject && Object.prototype.toString.call(object) === '[object String]';
         var theKeys = [];
 
-        if (!isObject && !isFunction && !isArguments) {
-            throw new TypeError('Object.keys called on a non-object');
-        }
+        if (!isObject && !isFunction && !isArguments) throw new TypeError('Object.keys called on a non-object');
 
         var skipProto = hasProtoEnumBug && isFunction;
         if (isString && object.length > 0 && !has.call(object, 0))
