@@ -1,4 +1,3 @@
-"use strict";
 //@ts-nocheck
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -15,7 +14,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
 var TimeoutError = /** @class */ (function (_super) {
     __extends(TimeoutError, _super);
     function TimeoutError() {
@@ -76,5 +74,5 @@ Promise.all = function (promises) {
         }); });
     });
 };
-exports.default = Promise;
+globalThis.Promise = Promise;
 //# sourceMappingURL=index.js.map

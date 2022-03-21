@@ -1,4 +1,6 @@
-import { fileDate } from '.';
+import '../app/modules/singles';
+
+const fileDate = globalThis.fileDate;
 
 it('FileDate check', () => {
     expect(fileDate()).toBeDefined();

@@ -63,4 +63,4 @@ Promise.all = (promises) => {
     });
 }
 
-export default Promise;
+globalThis.Promise = Promise;
