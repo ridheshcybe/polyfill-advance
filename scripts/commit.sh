@@ -2,4 +2,4 @@
 
 read -p 'commit msg: ' VAR
 
-git commit -S -am $VAR
+git commit -S -m "$VAR"
