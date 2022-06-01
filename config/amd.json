@@ -6,6 +6,9 @@
     "compilerOptions": {
         "target": "es5",
         "module": "amd",
+        "lib": [
+            "ESNext"
+        ],
         "moduleResolution": "node",
         "outFile": "../dist/amd.js",
         "sourceMap": true

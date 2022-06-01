@@ -6,6 +6,10 @@
     "compilerOptions": {
         "outDir": "../dist",
         "target": "es5",
+        "lib": [
+            "ESNext"
+
+        ],
         "moduleResolution": "node",
         "sourceMap": true
     },

@@ -1,11 +1,14 @@
 {
     "include": [
         "./app/*.ts",
-        "./app/modules/**/*.ts"  
+        "./app/modules/**/*.ts"
     ],
     "compilerOptions": {
         "outDir": "./dist",
         "target": "es5",
+        "lib": [
+            "ESNext"
+        ],
         "moduleResolution": "node",
         "esModuleInterop": true,
         "sourceMap": true

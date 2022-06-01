@@ -89,31 +89,8 @@ if (!Object.keys) {
         $webkitStorageInfo: true,
         $window: true
     };
-    var hasAutomationEqualityBug = (function () {
-        if (typeof window === 'undefined') { return false; }
-        for (var k in window) {
-            try {
-                if (!excludedKeys['$' + k] && has.call(window, k) && window[k] !== null && typeof window[k] === 'object') {
-                    try {
-                        equalsConstructorPrototype(window[k]);
-                    } catch (e) {
-                        return true;
-                    }
-                }
-            } catch (e) {
-                return true;
-            }
-        }
-        return false;
-    }());
-    var eCPINB = (o) => {
-        if (typeof window === 'undefined' || !hasAutomationEqualityBug) return equalsConstructorPrototype(o);
-        try {
-            return equalsConstructorPrototype(o);
-        } catch (e) {
-            return false;
-        }
-    };
+    var hasAutomationEqualityBug = false
+    var eCPINB = (o) => equalsConstructorPrototype(o);
 
     Object.keys = function keys(object) {
         var isObject = object !== null && typeof object === 'object';

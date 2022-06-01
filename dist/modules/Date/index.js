@@ -111,7 +111,7 @@ Date.prototype.age = function () {
     var e = Math.abs(this.getFullYear() - t.getFullYear());
     return 0 < e && (e -= 1), t.getMonth() > this.getMonth() || t.getMonth() === this.getMonth() && t.getDate() >= this.getDate() ? e + 1 : e;
 };
-Date.utc = {
+Date.utc = Object.assign({}, {
     hr: function () { return new Date().getUTCHours(); },
     date: function () { return new Date().getUTCDate(); },
     month: function () { return new Date().getUTCMonth(); },
@@ -119,8 +119,8 @@ Date.utc = {
     sec: function () { return new Date().getUTCSeconds(); },
     year: function () { return new Date().getUTCFullYear(); },
     millisec: function () { return new Date().getUTCMilliseconds(); }
-};
-Date.prototype.utc = {
+});
+Date.prototype.utc = Object.assign({}, {
     date: function () {
         return this.getUTCDate();
     },
@@ -142,6 +142,6 @@ Date.prototype.utc = {
     millisec: function () {
         return this.getUTCMilliseconds();
     }
-};
+});
 exports.default = Date;
 //# sourceMappingURL=index.js.map
