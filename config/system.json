@@ -1,0 +1,17 @@
+{
+    "include": [
+        "../app/*.ts",
+        "../app/modules/**/*.ts"
+    ],
+    "compilerOptions": {
+        "target": "es5",
+        "module": "system",
+        "moduleResolution": "node",
+        "outFile": "../dist/system.js",
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules",
+        "../app/*.test.ts"
+    ]
+}

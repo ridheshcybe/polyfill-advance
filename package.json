@@ -1,0 +1,40 @@
+{
+  "name": "polyfill-advance",
+  "version": "0.2.2",
+  "description": "polyfill that add's beta functions that modern js users use",
+  "main": "./dist/global.js",
+  "files": [
+    "app/",
+    "dist/"
+  ],
+  "maintainers": [
+    "ridhesh w",
+    "bryce d",
+    "daniel f",
+    "regina f"
+  ],
+  "keywords": [
+    "tsc",
+    "jest",
+    "cybe",
+    "bryce d",
+    "daniel f",
+    "regina f",
+    "ridhesh w",
+    "typescript"
+  ],
+  "repository": "https://github.com/cybemachine/polyfill-advance.git",
+  "author": {
+    "name": "cybe",
+    "url": "https://www.github.com/cybemachine/polyfill-advance.git",
+    "email": "80441770+cybemachine@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --project config/dir.json && tsc --project config/amd.json && tsc --project config/system.json",
+    "test": "npx jest"
+  },
+  "devDependencies": {
+    
+  }
+}

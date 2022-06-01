@@ -1,0 +1,17 @@
+{
+    "include": [
+        "./app/*.ts",
+        "./app/modules/**/*.ts"  
+    ],
+    "compilerOptions": {
+        "outDir": "./dist",
+        "target": "es5",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules",
+        "__tests__"
+    ]
+}

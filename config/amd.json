@@ -1,0 +1,17 @@
+{
+    "include": [
+        "../app/*.ts",
+        "../app/modules/**/*.ts"
+    ],
+    "compilerOptions": {
+        "target": "es5",
+        "module": "amd",
+        "moduleResolution": "node",
+        "outFile": "../dist/amd.js",
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules",
+        "../app/*.test.ts"
+    ]
+}
