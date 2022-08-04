@@ -1,11 +1,12 @@
 {
   "name": "polyfill-advance",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "polyfill that add's beta functions that modern js users use",
   "main": "./dist/global.js",
   "files": [
     "app/",
-    "dist/"
+    "dist/",
+    "tsconfig.json"
   ],
   "maintainers": [
     "ridhesh w",
